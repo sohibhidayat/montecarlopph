@@ -112,10 +112,11 @@ st.divider()
 
 
 # ==========================================
-# 6. FITUR EKSPOR DATA CSV
+# 6. FITUR EKSPOR & TABEL DATA PENUH
 # ==========================================
-st.subheader("📥 Ekspor Data Hasil Simulasi")
+st.subheader("📋 Data Hasil Simulasi Penuh")
 
+# Membuat DataFrame dari seluruh iterasi simulasi
 df_simulasi = pd.DataFrame({
     "Iterasi": np.arange(1, N + 1),
     "PKP_Simulasi_Rp": np.round(pkp_simulasi, 2),
@@ -133,6 +134,7 @@ def convert_df_to_csv(df):
 
 csv_data = convert_df_to_csv(df_simulasi)
 
+# Tombol Download & Info Jumlah Baris Data
 col_exp1, col_exp2 = st.columns([1, 2])
 
 with col_exp1:
@@ -145,8 +147,11 @@ with col_exp1:
     )
 
 with col_exp2:
-    with st.expander("Pratinjau Data (10 Baris Pertama)"):
-        st.dataframe(df_simulasi.head(10), use_container_width=True)
+    st.info(f"💡 Menampilkan seluruh **{N:,} baris** data hasil iterasi.")
+
+# TAMPILAN TABEL PENUH
+# Catatan: Parameter height=400 memberikan scrollbar internal agar halaman utama tidak terlalu panjang.
+st.dataframe(df_simulasi, use_container_width=True, height=400)
 
 st.divider()
 
